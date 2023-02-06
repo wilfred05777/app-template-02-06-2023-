@@ -1,17 +1,20 @@
 // const express = require('express');
 
 import express, { Request, Response, NextFunction } from 'express';
-
+import { json } from 'body-parser';
 import todoRoutes from './routes/todos';
 
-const PORT = 7000;
-
 const app = express();
+
+app.use(json());
 
 app.use('/todos', todoRoutes);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  res.json({ message: err.message });
+  res.status(500).json({ message: err.message });
 });
 
-app.listen(`connected to port ${PORT}`);
+// const PORT = 7001;
+// app.listen(`connected to port ${PORT}`);
+// app.listen(`listening to port 7000 ${7000}`);
+app.listen(7001);
